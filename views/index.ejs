@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mongoose Dashboard</title>
+</head>
+<body>
+    <h1>Mongoose Dashboard</h1>
+    <form action="/post" method="post">
+        <label for="name">Poster Name:</label><br>
+        <input type="text" name="name"><br>
+        <label for="text">Message:</label><br>
+        <textarea name="text" id="" cols="60" rows="4"></textarea><br>
+        <input type="submit" value="Post Message">
+    </form>
+    <% for (var x in posts) { %>
+        <h3>Post: <%= posts[x].text %></h3>
+        <h4>Name: <%= posts[x].name %></h4>
+        <h5><%= posts[x].createdAt %></h5>
+        <% for (var y = 0; y < posts[x].comments.length; y++) { %>
+            <h5>Name: <%= posts[x].comments[y].name %></h5>
+            <h5>Comment: <%= posts[x].comments[y].text %></h5>
+            <h5> <%= posts[x].comments[y].createdAt %></h5>
+            <hr>
+        <% } %>
+        <form action="/post/<%= posts[x].id %>" method="post">
+            <label for="name">Commenter Name:</label><br>
+            <input type="text" name="name"><br>
+            <label for="text">Comment:</label><br>
+            <textarea name="text" id="" cols="50" rows="3"></textarea><br>
+            <input type="submit" value="Post Comment">
+        </form>
+        <hr>
+    <% } %>
+</body>
+</html>
